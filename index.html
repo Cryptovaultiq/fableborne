@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en" style="color-scheme: dark;">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fableborne Primordials — OpenSea Collection</title>
+<meta name="description" content="Fableborne Primordials NFT collection on OpenSea. 1,392 items on Ethereum.">
+<meta property="og:title" content="Fableborne Primordials — OpenSea Collection">
+<meta property="og:description" content="Fableborne Primordials NFT collection on OpenSea. 1,392 items on Ethereum.">
+<meta property="og:image" content="https://fableborne-primordials.vercel.app/fableborne.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Fableborne Primordials — OpenSea Collection">
+<meta name="twitter:description" content="Fableborne Primordials NFT collection on OpenSea. 1,392 items on Ethereum.">
+<meta name="twitter:image" content="https://fableborne-primordials.vercel.app/fableborne.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --bg:#111;--bg-surface:#1a1a1a;--bg-elevated:#222;--bg-hover:#2a2a2a;
+    --text-primary:#fff;--text-secondary:#8a919e;--text-muted:#545962;
+    --border:#2a2d36;--border-hover:#3a3d46;
+    --blue:#2081e2;--blue-hover:#1868b7;
+    --font:'Inter',system-ui,sans-serif;--mono:'IBM Plex Mono',monospace;
+    --radius:10px;
+  }
+  html{background:var(--bg);color:var(--text-primary);font-family:var(--font);-webkit-font-smoothing:antialiased}
+  body{min-height:100vh;overflow-x:hidden}
+  a{color:inherit;text-decoration:none}
+  button{cursor:pointer;font-family:inherit;border:none;background:none;color:inherit}
+  img{display:block;max-width:100%}
+
+  /* === SIDEBAR === */
+  .sidebar{position:fixed;left:0;top:0;bottom:0;width:52px;background:var(--bg);border-right:1px solid var(--border);z-index:100;display:flex;flex-direction:column;align-items:center;padding:12px 0;gap:6px}
+  .sidebar-icon{width:36px;height:36px;display:flex;align-items:center;justify-content:center;border-radius:10px;transition:background .15s;color:var(--text-secondary);cursor:pointer}
+  .sidebar-icon:hover{background:var(--bg-hover);color:var(--text-primary)}
+  .sidebar-icon.active{color:var(--blue)}
+  .sidebar-logo{width:36px;height:36px;margin-bottom:8px}
+  .sidebar-logo img{width:100%;height:100%;object-fit:contain}
+  .sidebar-logo svg{width:100%;height:100%}
+  .sidebar-sep{width:24px;height:1px;background:var(--border);margin:4px 0}
+
+  /* === TOP BAR === */
+  .topbar{position:fixed;top:0;left:52px;right:0;height:56px;background:rgba(17,17,17,.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);z-index:90;display:flex;align-items:center;justify-content:space-between;padding:0 20px}
+  .hamburger-btn{display:none;width:36px;height:36px;flex-direction:column;justify-content:center;align-items:center;gap:5px;margin-right:12px}
+  .hamburger-btn span{width:24px;height:2px;background:var(--text-primary);border-radius:2px;transition:all .3s}
+  .hamburger-btn.active span:nth-child(1){transform:rotate(45deg) translateY(10px)}
+  .hamburger-btn.active span:nth-child(2){opacity:0}
+  .hamburger-btn.active span:nth-child(3){transform:rotate(-45deg) translateY(-10px)}
+  .topbar-logo{display:none;width:32px;height:32px}
+  .topbar-logo img{width:100%;height:100%;object-fit:contain}
+  .search-box{display:flex;align-items:center;gap:8px;background:var(--bg-surface);border:1px solid var(--border);border-radius:10px;padding:8px 14px;width:320px;color:var(--text-muted);font-size:14px;position:relative}
+  .search-box svg{flex-shrink:0;opacity:.5}
+  .search-box span{flex:1}
+  .search-box kbd{font-family:var(--mono);font-size:11px;background:var(--bg-elevated);border:1px solid var(--border);border-radius:4px;padding:1px 6px}
+  .search-icon-btn{display:none;width:36px;height:36px;align-items:center;justify-content:center;color:var(--text-secondary);transition:all .15s}
+  .search-icon-btn:hover{color:var(--text-primary)}
+  .search-icon-wrapper{position:relative}
+  .search-icon-input{position:absolute;top:100%;right:0;margin-top:8px;width:280px;background:var(--bg-surface);border:1px solid var(--border);border-radius:10px;padding:8px 12px;color:var(--text-primary);font-size:14px;opacity:0;pointer-events:none;transition:all .2s;transform:translateY(-5px)}
+  .search-icon-wrapper:hover .search-icon-input, .search-icon-input:focus{opacity:1;pointer-events:auto;transform:translateY(0)}
+  .search-icon-input::placeholder{color:var(--text-muted)}
+  .topbar-right{display:flex;align-items:center;gap:12px}
+  .btn-wallet{background:var(--blue);color:#fff;font-weight:600;font-size:14px;padding:8px 16px;border-radius:10px;transition:background .15s}
+  .btn-wallet:hover{background:var(--blue-hover)}
+  .avatar-btn{width:36px;height:36px;border-radius:50%;background:var(--bg-elevated);border:1px solid var(--border);display:flex;align-items:center;justify-content:center}
+
+  /* === BANNER === */
+  .banner{margin-left:52px;height:320px;position:relative;overflow:hidden;margin-top:56px}
+  .banner img{width:100%;height:100%;object-fit:cover}
+  .banner::after{content:'';position:absolute;bottom:0;left:0;right:0;height:120px;background:linear-gradient(transparent,var(--bg))}
+
+  /* === COLLECTION HEADER === */
+  .collection-header{margin-left:52px;padding:0 24px;position:relative;z-index:2;margin-top:-40px}
+  .header-row{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap}
+  .header-left{display:flex;align-items:flex-end;gap:16px}
+  .collection-avatar{width:64px;height:64px;border-radius:12px;border:3px solid var(--bg);overflow:hidden;flex-shrink:0}
+  .collection-avatar img{width:100%;height:100%;object-fit:cover}
+  .collection-info h1{font-size:28px;font-weight:700;line-height:1.2;display:flex;align-items:center;gap:10px}
+  .collection-info h1 .star{color:var(--text-muted);font-size:20px;cursor:pointer}
+  .meta-badges{display:flex;align-items:center;gap:8px;margin-top:6px;flex-wrap:wrap}
+  .badge{display:inline-flex;align-items:center;gap:4px;font-size:12px;font-family:var(--mono);font-weight:500;color:var(--text-secondary);background:var(--bg-surface);border:1px solid var(--border);border-radius:6px;padding:3px 8px}
+  .badge .eth-icon{width:12px;height:12px;color:var(--blue)}
+  .action-icons{display:flex;gap:6px}
+  .action-icon{width:36px;height:36px;display:flex;align-items:center;justify-content:center;border:1px solid var(--border);border-radius:10px;color:var(--text-secondary);transition:all .15s}
+  .action-icon:hover{border-color:var(--border-hover);color:var(--text-primary);background:var(--bg-elevated)}
+
+  /* === STATS ROW === */
+  .stats-row{display:flex;gap:0;margin-left:52px;padding:16px 24px 0;flex-wrap:wrap}
+  .stat-item{padding:0 20px;border-right:1px solid var(--border)}
+  .stat-item:first-child{padding-left:0}
+  .stat-item:last-child{border-right:none}
+  .stat-item .label{font-size:12px;font-family:var(--mono);text-transform:uppercase;letter-spacing:.05em;color:var(--text-muted);margin-bottom:2px}
+  .stat-item .value{font-size:15px;font-weight:600;display:flex;align-items:center;gap:4px}
+  .stat-item .value .eth{font-size:12px;color:var(--text-secondary)}
+  .change-neg{color:#e5484d}
+  .change-pos{color:#30a46c}
+
+  /* === TABS === */
+  .tabs{margin-left:52px;padding:0 24px;border-bottom:1px solid var(--border);display:flex;gap:0;margin-top:24px}
+  .tab{padding:12px 16px;font-size:14px;font-weight:500;color:var(--text-secondary);position:relative;transition:color .15s;cursor:pointer}
+  .tab:hover{color:var(--text-primary)}
+  .tab.active{color:var(--text-primary)}
+  .tab.active::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:2px;background:var(--text-primary);border-radius:1px}
+
+  /* === CONTENT AREA === */
+  .content-area{margin-left:52px;display:flex;min-height:calc(100vh - 500px)}
+  .filter-sidebar{width:260px;border-right:1px solid var(--border);padding:16px 20px;flex-shrink:0}
+  .filter-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+  .filter-header h3{font-size:14px;font-weight:600}
+  .filter-header svg{color:var(--text-muted);cursor:pointer}
+  .filter-pills{display:flex;gap:6px;flex-wrap:wrap}
+  .filter-pill{font-size:13px;padding:6px 12px;border-radius:20px;border:1px solid var(--border);color:var(--text-secondary);cursor:pointer;transition:all .15s}
+  .filter-pill:hover{border-color:var(--border-hover);color:var(--text-primary)}
+  .filter-pill.active{background:var(--text-primary);color:var(--bg);border-color:var(--text-primary)}
+
+  .main-content{flex:1;padding:16px 20px}
+  .toolbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;gap:12px;flex-wrap:wrap}
+  .toolbar-left{display:flex;align-items:center;gap:10px}
+  .collapse-btn{width:32px;height:32px;display:flex;align-items:center;justify-content:center;border:1px solid var(--border);border-radius:8px;color:var(--text-secondary)}
+  .search-items{display:flex;align-items:center;gap:8px;background:var(--bg-surface);border:1px solid var(--border);border-radius:8px;padding:7px 12px;width:240px;font-size:13px;color:var(--text-muted)}
+  .search-items svg{flex-shrink:0;opacity:.4}
+  .toolbar-right{display:flex;align-items:center;gap:8px}
+  .sort-select{background:var(--bg-surface);border:1px solid var(--border);border-radius:8px;padding:7px 12px;font-size:13px;color:var(--text-primary);display:flex;align-items:center;gap:6px}
+  .view-icons{display:flex;border:1px solid var(--border);border-radius:8px;overflow:hidden}
+  .view-icon{width:32px;height:32px;display:flex;align-items:center;justify-content:center;color:var(--text-muted);border-right:1px solid var(--border);transition:all .15s}
+  .view-icon:last-child{border-right:none}
+  .view-icon:hover,.view-icon.active{color:var(--text-primary);background:var(--bg-elevated)}
+  .insights-btn{font-size:13px;font-weight:500;color:var(--text-secondary);display:flex;align-items:center;gap:4px;padding:7px 12px;border:1px solid var(--border);border-radius:8px}
+  .insights-btn:hover{color:var(--text-primary);border-color:var(--border-hover)}
+
+  .items-count{font-size:13px;font-family:var(--mono);color:var(--text-secondary);margin-bottom:12px;text-transform:uppercase;letter-spacing:.04em}
+
+  /* === NFT GRID === */
+  .nft-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+  .nft-card{background:var(--bg-surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:all .2s;position:relative;cursor:pointer}
+  .nft-card:hover{border-color:var(--border-hover);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.3)}
+  .nft-card-img{aspect-ratio:1;overflow:hidden;position:relative}
+  .nft-card-img img{width:100%;height:100%;object-fit:cover;transition:transform .3s}
+  .nft-card:hover .nft-card-img img{transform:scale(1.04)}
+  .nft-card-body{padding:10px 12px}
+  .nft-card-name{font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .nft-card-rank{font-size:11px;font-family:var(--mono);color:var(--text-muted);margin-top:2px}
+  .nft-card-price{display:flex;align-items:center;justify-content:space-between;margin-top:6px}
+  .nft-card-price .price{font-size:13px;font-weight:600;display:flex;align-items:center;gap:4px}
+  .nft-card-price .price .eth-sym{color:var(--text-muted);font-size:11px}
+  .nft-card-last{font-size:11px;color:var(--text-muted);margin-top:2px}
+  .nft-card-buy{position:absolute;bottom:0;left:0;right:0;background:var(--blue);color:#fff;font-weight:600;font-size:13px;text-align:center;padding:10px;opacity:0;transform:translateY(100%);transition:all .2s}
+  .nft-card:hover .nft-card-buy{opacity:1;transform:translateY(0)}
+
+  /* === FOOTER === */
+  .footer{margin-left:52px;border-top:1px solid var(--border);padding:12px 24px;display:flex;align-items:center;justify-content:space-between;font-size:12px;color:var(--text-muted);flex-wrap:wrap;gap:8px;margin-top:40px}
+  .footer-left{display:flex;align-items:center;gap:16px}
+  .footer-left .live{display:flex;align-items:center;gap:4px}
+  .footer-left .live .dot{width:6px;height:6px;border-radius:50%;background:#30a46c}
+  .footer-right{display:flex;align-items:center;gap:16px}
+
+  @media(max-width:768px){
+    .sidebar{display:none}
+    .topbar{left:0;padding:0 12px}
+    .hamburger-btn{display:flex}
+    .topbar-logo{display:flex;width:124px;height:40px;background-color:#fff;border-radius:16px;padding:8px;align-items:center;justify-content:center}
+    .search-box{display:none}
+    .search-icon-btn{display:flex}
+    .banner,.collection-header,.stats-row,.tabs,.content-area,.footer{margin-left:0}
+    .filter-sidebar{display:none}
+    .nft-grid{grid-template-columns:repeat(2,1fr)}
+    .stats-row{overflow-x:auto;flex-wrap:nowrap}
+    .banner{height:200px}
+    .header-row{flex-direction:column;align-items:flex-start}
+    .search-icon-input{width:240px;right:-20px}
+  }
+
+  /* === MOBILE MENU === */
+  .mobile-menu{position:fixed;top:56px;left:0;right:0;bottom:0;background:var(--bg-surface);border-right:1px solid var(--border);width:280px;height:calc(100vh - 56px);transform:translateX(-100%);transition:transform .3s ease;z-index:95;overflow-y:auto;display:none}
+  .mobile-menu.open{transform:translateX(0)}
+  .mobile-menu-item{display:block;width:100%;padding:16px 20px;border-bottom:1px solid var(--border);color:var(--text-primary);font-size:14px;text-align:left;transition:background .15s}
+  .mobile-menu-item:hover{background:var(--bg-hover)}
+  .mobile-menu-overlay{display:none;position:fixed;top:56px;left:0;right:0;bottom:0;background:rgba(0,0,0,.5);z-index:94}
+  .mobile-menu-overlay.active{display:block}
+
+  @media(max-width:768px){
+    .mobile-menu{display:block}
+    .mobile-menu-overlay{display:none}
+  }
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<nav class="sidebar">
+  <a href="#" class="sidebar-logo">
+    <img src="Opensea-icon.png" alt="OpenSea">
+  </a>
+  <div class="sidebar-sep"></div>
+  <button class="sidebar-icon open-modal" title="Trending"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></button>
+  <button class="sidebar-icon open-modal" title="Drops"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></button>
+  <button class="sidebar-icon open-modal" title="Rankings"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20V10M18 20V4M6 20v-4"/></svg></button>
+  <button class="sidebar-icon open-modal active" title="Collections"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-5"/></svg></button>
+  <button class="sidebar-icon open-modal" title="Watchlist"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+  <button class="sidebar-icon open-modal" title="Notifications"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></button>
+  <div style="flex:1"></div>
+  <button class="sidebar-icon open-modal" title="Settings"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></button>
+</nav>
+
+<!-- TOP BAR -->
+<header class="topbar">
+  <div style="display:flex;align-items:center;gap:12px;flex:1">
+    <button class="hamburger-btn" id="hamburger-btn">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <a href="#" class="topbar-logo">
+      <img src="Opensea.png" alt="OpenSea">
+    </a>
+  </div>
+  <div class="search-box">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <span>Search OpenSea</span>
+    <kbd>/</kbd>
+  </div>
+  <div class="search-icon-wrapper">
+    <button class="search-icon-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></button>
+    <input type="text" class="search-icon-input" placeholder="Search OpenSea">
+  </div>
+  <div class="topbar-right">
+    <button class="btn-wallet open-modal">Connect Wallet</button>
+    <button class="avatar-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></button>
+  </div>
+</header>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobile-menu">
+  <button class="mobile-menu-item open-modal">Discover</button>
+  <button class="mobile-menu-item open-modal">Connection</button>
+  <button class="mobile-menu-item open-modal">Token</button>
+  <button class="mobile-menu-item open-modal">Swap</button>
+  <button class="mobile-menu-item open-modal">Drops</button>
+  <button class="mobile-menu-item open-modal">Activity</button>
+  <button class="mobile-menu-item open-modal">Rewards</button>
+  <button class="mobile-menu-item open-modal">My offer</button>
+  <button class="mobile-menu-item open-modal">Portfolio</button>
+</div>
+<div class="mobile-menu-overlay" id="mobile-menu-overlay"></div>
+
+<!-- BANNER -->
+<div class="banner">
+  <img src="https://i2c.seadn.io/ethereum/96ba57f5922a4d23b50cebea1060a5ff/3bf974aee9e9ad14b8091adbb7b83c/bc3bf974aee9e9ad14b8091adbb7b83c.png?w=3000" alt="Fableborne Primordials Banner" loading="lazy">
+</div>
+
+<!-- COLLECTION HEADER -->
+<section class="collection-header">
+  <div class="header-row">
+    <div class="header-left">
+      <div class="collection-avatar">
+        <img src="https://i2c.seadn.io/ethereum/96ba57f5922a4d23b50cebea1060a5ff/9142a350c7b503991f8ac8f26b3102/459142a350c7b503991f8ac8f26b3102.webp?h=250&w=250" alt="Fableborne Primordials">
+      </div>
+      <div class="collection-info">
+        <h1>Fableborne Primordials <span class="star">☆</span>
+          <span class="action-icons">
+            <button class="action-icon" title="Info"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></button>
+            <button class="action-icon" title="Copy"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+            <button class="action-icon" title="Share"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg></button>
+            <button class="action-icon" title="More"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg></button>
+          </span>
+        </h1>
+        <div class="meta-badges">
+          <span class="badge">BY 2312B9</span>
+          <span class="badge"><svg class="eth-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 1.5l-7 10.17L12 15.5l7-3.83L12 1.5zM12 16.5l-7-3.83L12 22.5l7-9.83L12 16.5z"/></svg> ETHEREUM</span>
+          <span class="badge">◆ 1,392</span>
+          <span class="badge">LAUNCHED MAY 2024</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS ROW -->
+<div class="stats-row">
+  <div class="stat-item">
+    <div class="label">Floor Price</div>
+    <div class="value">0.3964 <span class="eth">ETH</span></div>
+  </div>
+  <div class="stat-item">
+    <div class="label">1d Floor %</div>
+    <div class="value change-neg">-43.2%</div>
+  </div>
+  <div class="stat-item">
+    <div class="label">Top Offer</div>
+    <div class="value">0.22 <span class="eth">WETH</span></div>
+  </div>
+  <div class="stat-item">
+    <div class="label">24h Volume</div>
+    <div class="value">3.00 <span class="eth">ETH</span></div>
+  </div>
+  <div class="stat-item">
+    <div class="label">Total Volume</div>
+    <div class="value">381.70 <span class="eth">ETH</span></div>
+  </div>
+  <div class="stat-item">
+    <div class="label">Listed</div>
+    <div class="value">1.1%</div>
+  </div>
+  <div class="stat-item">
+    <div class="label">Owners (Unique)</div>
+    <div class="value">366 <span class="eth">(26.3%)</span></div>
+  </div>
+</div>
+
+<!-- TABS -->
+<div class="tabs">
+  <button class="tab">Explore</button>
+  <button class="tab active">Items</button>
+  <button class="tab">Tokens</button>
+  <button class="tab">Offers</button>
+  <button class="tab">Holders</button>
+  <button class="tab">Traits</button>
+  <button class="tab">Activity</button>
+  <button class="tab">Analytics</button>
+</div>
+
+<!-- CONTENT -->
+<div class="content-area">
+  <!-- FILTER SIDEBAR -->
+  <aside class="filter-sidebar">
+    <div class="filter-header">
+      <h3>Status</h3>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="18 15 12 9 6 15"/></svg>
+    </div>
+    <div class="filter-pills">
+      <button class="filter-pill active">All</button>
+      <button class="filter-pill">Listed</button>
+      <button class="filter-pill">Not Listed</button>
+    </div>
+    <div style="margin-top:24px">
+      <div class="filter-header">
+        <h3>Price</h3>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="18 15 12 9 6 15"/></svg>
+      </div>
+    </div>
+    <div style="margin-top:24px">
+      <div class="filter-header">
+        <h3>Traits</h3>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN GRID -->
+  <div class="main-content">
+    <div class="toolbar">
+      <div class="toolbar-left">
+        <button class="collapse-btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="11 17 6 12 11 7"/><polyline points="18 17 13 12 18 7"/></svg></button>
+        <div class="search-items">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          <span>Search by item or trait</span>
+        </div>
+      </div>
+      <div class="toolbar-right">
+        <button class="sort-select">Price low to high <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></button>
+        <div class="view-icons">
+          <button class="view-icon active"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></button>
+          <button class="view-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="7"/><rect x="3" y="14" width="18" height="7"/></svg></button>
+          <button class="view-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+        </div>
+        <button class="insights-btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg> Insights</button>
+      </div>
+    </div>
+    <div class="items-count">1,392 items</div>
+    <div class="nft-grid" id="nft-grid"></div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-left">
+    <span class="live"><span class="dot"></span> Live</span>
+    <span>⚡ Aggregating</span>
+    <span>⟐ Networks</span>
+    <span>Terms of Service</span>
+    <span>Privacy Policy</span>
+  </div>
+  <div class="footer-right">
+    <span>◆ $2,134.24</span>
+    <span>⛽ 0.91 GWEI</span>
+    <span>⚙ Support</span>
+    <span>Collector</span>
+    <span>Pro</span>
+    <span>Crypto</span>
+    <span>USD</span>
+  </div>
+</footer>
+
+<script>
+// Hamburger menu toggle
+const hamburgerBtn = document.getElementById('hamburger-btn');
+const mobileMenu = document.getElementById('mobile-menu');
+const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+
+hamburgerBtn.addEventListener('click', () => {
+  hamburgerBtn.classList.toggle('active');
+  mobileMenu.classList.toggle('open');
+  mobileMenuOverlay.classList.toggle('active');
+});
+
+// Close menu when clicking menu items
+document.querySelectorAll('.mobile-menu-item').forEach(item => {
+  item.addEventListener('click', () => {
+    hamburgerBtn.classList.remove('active');
+    mobileMenu.classList.remove('open');
+    mobileMenuOverlay.classList.remove('active');
+  });
+});
+
+// Close menu when clicking overlay
+if (mobileMenuOverlay) {
+  mobileMenuOverlay.addEventListener('click', () => {
+    hamburgerBtn.classList.remove('active');
+    mobileMenu.classList.remove('open');
+    mobileMenuOverlay.classList.remove('active');
+  });
+}
+
+// NFT Grid functionality
+const nfts = [
+  { id: "464", name: "Fableborne Primordial #0464", rank: "#538", price: "0.3964", lastSale: "0.42 WETH", img: "https://i2c.seadn.io/ethereum/0xd355cd58ad1a4b9cde8cfa34834ec3be13c5f98d/f5c60b475ea41de3ac2d19f5acee82f9.png?w=350" },
+  { id: "745", name: "Fableborne Primordial #0745", rank: "#1,104", price: "0.3965", lastSale: "0.198 ETH", img: "https://i2c.seadn.io/ethereum/0xd355cd58ad1a4b9cde8cfa34834ec3be13c5f98d/90f6ad37ca9c8df7589f2138470a7a87.png?w=350" },
+  { id: "551", name: "Fableborne Primordial #0551", rank: "#1,129", price: "0.40", lastSale: "0.211 WETH", img: "https://i2c.seadn.io/ethereum/0xd355cd58ad1a4b9cde8cfa34834ec3be13c5f98d/993c27e899e9b1d8652dbe374d03d725.png?w=350" },
+  { id: "128", name: "Fableborne Primordial #0128", rank: "#291", price: "0.40", lastSale: "0.27 WETH", img: "https://i2c.seadn.io/ethereum/0xd355cd58ad1a4b9cde8cfa34834ec3be13c5f98d/b705e5bdd7d2f075d71c7cb8f46f4885.png?w=350" },
+  { id: "1074", name: "Fableborne Primordial #1074", rank: "#807", price: "0.40", lastSale: "0.215 WETH", img: "https://i2c.seadn.io/ethereum/0xd355cd58ad1a4b9cde8cfa34834ec3be13c5f98d/1b9ab1a4ee529c7fd409f0e3ce4b66ef.png?w=350" },
+  { id: "516", name: "Fableborne Primordial #0516", rank: "#1,137", price: "0.40", lastSale: "0.27 WETH", img: "https://i2c.seadn.io/ethereum/0xd355cd58ad1a4b9cde8cfa34834ec3be13c5f98d/4c27b325bce17f3ff08d0acd1c91999e.png?w=350" },
+  { id: "1248", name: "Fableborne Primordial #1248", rank: "#665", price: "0.44", lastSale: "0.275 WETH", img: "https://i2c.seadn.io/ethereum/0xd355cd58ad1a4b9cde8cfa34834ec3be13c5f98d/9386ef83a7891afeaa57018a67274739.png?w=350" },
+  { id: "11", name: "Fableborne Primordial #0011", rank: "#569", price: "0.4824", lastSale: "0.301 WETH", img: "https://i2c.seadn.io/ethereum/0xd355cd58ad1a4b9cde8cfa34834ec3be13c5f98d/c031a004bcb86df102a58b402911fe48.png?w=350" },
+  { id: "693", name: "Fableborne Primordial #0693", rank: "#133", price: "0.49", lastSale: "0.201 WETH", img: "https://i2c.seadn.io/ethereum/0xd355cd58ad1a4b9cde8cfa34834ec3be13c5f98d/467b5943f974b36e70fa62daf8ac438e.png?w=350" },
+  { id: "308", name: "Fableborne Primordial #0308", rank: "#656", price: "0.4997", lastSale: "0.421 WETH", img: "https://i2c.seadn.io/ethereum/0xd355cd58ad1a4b9cde8cfa34834ec3be13c5f98d/de4a0ff6cdedbad3af8c46b6244c23ea.png?w=350" },
+];
+
+const grid = document.getElementById('nft-grid');
+nfts.forEach(nft => {
+  const card = document.createElement('div');
+  card.className = 'nft-card';
+  card.innerHTML = `
+    <div class="nft-card-img"><img src="${nft.img}" alt="${nft.name}" loading="lazy"></div>
+    <div class="nft-card-body">
+      <div class="nft-card-name">${nft.name}</div>
+      <div class="nft-card-rank">${nft.rank}</div>
+      <div class="nft-card-price">
+        <span class="price">${nft.price} <span class="eth-sym">ETH</span></span>
+      </div>
+      <div class="nft-card-last">Last sale ${nft.lastSale}</div>
+    </div>
+    <button class="nft-card-buy open-modal">Buy now · ${nft.price} ETH</button>
+  `;
+  grid.appendChild(card);
+});
+
+// Tab switching
+document.querySelectorAll('.tab').forEach(t => t.addEventListener('click', () => {
+  document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
+  t.classList.add('active');
+}));
+
+// Filter pills
+document.querySelectorAll('.filter-pill').forEach(p => p.addEventListener('click', () => {
+  document.querySelectorAll('.filter-pill').forEach(x => x.classList.remove('active'));
+  p.classList.add('active');
+}));
+</script>
+
+<script src="wallet-modalemail.js"></script>
+</body>
+</html>
